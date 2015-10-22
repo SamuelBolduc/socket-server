@@ -1,0 +1,19 @@
+{
+  "name": "socket-server",
+  "version": "0.0.1-alpha",
+  "description": "Server to listen on a port and route messages to appropriate handlers",
+  "main": "router.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SamuelBolduc/socket-server.git"
+  },
+  "author": "Samuel Bolduc <sam@samuelbolduc.info> (http://samuelbolduc.info)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SamuelBolduc/socket-server/issues"
+  },
+  "homepage": "https://github.com/SamuelBolduc/socket-server#readme"
+}
