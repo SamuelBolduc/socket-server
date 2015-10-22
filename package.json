@@ -2,9 +2,9 @@
   "name": "socket-server",
   "version": "0.0.1-alpha",
   "description": "Server to listen on a port and route messages to appropriate handlers",
-  "main": "router.js",
+  "main": "Router.js",
   "scripts": {
-    "test": "npm test"
+    "test": ""
   },
   "repository": {
     "type": "git",
