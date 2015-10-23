@@ -19,8 +19,8 @@ class Router {
   listen(port) {
     this.server = net.createServer().listen(port);
     this.server.on('connection', socket => {
-      const connection = new Connection(socket, this.handlers);
-      connection.registerDispatcher();
+      const connection = new Connection(socket);
+      connection.registerDispatcher(this.handlers);
     });
   }
 }

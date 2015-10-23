@@ -3,10 +3,9 @@
 const JsonSocket = require('json-socket');
 
 class Connection {
-  constructor(socket, handlers) {
+  constructor(socket) {
     // Bind JSON socket functions
     this.socket = new JsonSocket(socket);
-    this.handlers = handlers;
     this.processMessage = this.processMessage.bind(this);
     this.registerUtilityMethods = this.registerUtilityMethods.bind(this);
     this.registerDispatcher = this.registerDispatcher.bind(this);
@@ -24,7 +23,6 @@ class Connection {
     }
 
     function _error(msg, e) {
-      log.e(e || msg);
       const errorResponse = {msg: msg.toString(), details: e ? e.toString() : null};
       that.socket.sendEndMessage({status: 'error', e: errorResponse});
     }
@@ -35,21 +33,29 @@ class Connection {
     Promise.resolve();
   }
 
-  registerDispatcher() {
-    this.socket.on('message', this.processMessage);
+  registerDispatcher(handlers) {
+    this.handlers = handlers;
+    this.socket.on('message', message => {
+      try {
+        this.processMessage(message);
+      } catch(err) {
+        console.log(err);
+        throw err;
+      }
+    });
     Promise.resolve();
   }
 
   checkMessageIntegrity(message) {
     if(!message.type) {
-      throw new Error('No message type found in socket message!');
+      this.socket.error(new Error('No message type found in socket message!'));
     } else {
       return message;
     }
   }
 
   checkRouteAvailability(message) {
-    if(!this.handlers.get(message.type)) throw new Error(`No handler found for this message type (message.type = ${message.type})`);
+    if(!this.handlers.get(message.type)) this.socket.error(new Error(`No handler found for this message type (message.type = ${message.type})`));
     return message;
   }
 
@@ -57,14 +63,21 @@ class Connection {
     const utilities = {success: this.socket.success, error: this.socket.error};
     const handler = this.handlers.get(message.type);
 
-    Promise.resolve(handler(message.body, utilities)).catch(this.socket.error);
+    try {
+      handler(message.body, utilities);
+    } catch(err) {
+      this.socket.error('Error in response handler on the server');
+      throw err;
+    }
   }
 
   processMessage(message) {
     Promise.resolve(this.checkMessageIntegrity(message))
     .then(this.checkRouteAvailability)
     .then(this.route)
-    .catch(this.socket.error);
+    .catch(err => {
+      console.log(err.stack);
+    });
   }
 }
 
