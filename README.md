@@ -1,1 +1,2 @@
-## This is work in progress only. Please do not use this in production for now
+# Socket Router Server [![Build Status](https://travis-ci.org/SamuelBolduc/socket-server.svg?branch=master)](https://travis-ci.org/SamuelBolduc/socket-server)
+### This is work in progress only. Please do not use this in production for now
