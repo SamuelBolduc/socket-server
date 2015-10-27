@@ -1,10 +1,6 @@
 'use strict';
 
-console.log("This file is " + __filename);
-console.log("It's located in " + __dirname);
-console.log("The current working directory is " + process.cwd());
-
-const Router = require(`${__dirname}/../Router.js`);
+const Router = require(`${process.cwd()}/Router.js`);
 require('chai').should();
 
 function throwException(e) {
