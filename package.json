@@ -16,6 +16,10 @@
     "url": "https://github.com/SamuelBolduc/socket-server/issues"
   },
   "homepage": "https://github.com/SamuelBolduc/socket-server#readme",
+  "engines" : { 
+    "node" : ">=4.0.0" 
+  },
+  "engineStrict" : true,
   "dependencies": {
     "json-socket": "^0.1.2"
   },
