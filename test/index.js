@@ -1,6 +1,6 @@
 'use strict';
 
-const Router = require('../Router.js');
+const Router = require(`${__dirname}/../Router.js`);
 require('chai').should();
 
 function throwException(e) {
