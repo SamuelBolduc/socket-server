@@ -16,11 +16,27 @@ class Router {
     this.handlers.set(name, handler);
   }
 
+  end() {
+    return new Promise((resolve, reject) => {
+      this.server.close(err => {
+        if(err) {
+          return reject('Not running. Nothing done.');
+        }
+        this.server = null;
+        resolve();
+      });
+    });
+  }
+
   listen(port) {
-    this.server = net.createServer().listen(port);
-    this.server.on('connection', socket => {
-      const connection = new Connection(socket);
-      connection.registerDispatcher(this.handlers);
+    return new Promise((resolve, reject) => {
+      this.server = net.createServer().listen(port, () => {
+        resolve();
+        this.server.on('connection', socket => {
+          const connection = new Connection(socket);
+          connection.registerDispatcher(this.handlers);
+        });
+      });
     });
   }
 }

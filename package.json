@@ -4,7 +4,7 @@
   "description": "Server to listen on a port and route messages to appropriate handlers",
   "main": "Router.js",
   "scripts": {
-    "test": ""
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,9 @@
   "homepage": "https://github.com/SamuelBolduc/socket-server#readme",
   "dependencies": {
     "json-socket": "^0.1.2"
+  },
+  "devDependencies": {
+    "chai": "^3.4.0",
+    "mocha": "^2.3.3"
   }
 }
