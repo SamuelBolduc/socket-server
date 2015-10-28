@@ -1,4 +1,6 @@
 language: node_js
 node_js:
-  - "4.1"
-  - "4.0"
+- '4.1'
+- '4.0'
+notifications:
+  secure: Maejlo6J2gDhObAGbwTxfacMhiUbo1bgXfL41vYcBZB1alaTLK/j31k6M26nxhZei2ppiynYhUV32lf24OPXQbVxuRuG6uQjpAE6bUUvDPRmaqAZzs7eJM1O5mHxfD4CVPgXSf3FHEEym6qwthtb0Hr15OUG0R8yUg+cp2P/tsmEtsRTdo41YvTBXXHfjT1KJJI2hAiM537eKOkUNgiNfYabCnQjQKz4olvgioJtOlN2zNRR+mM3QjtCH1GwPlZYCFPB1kMqJ/xBf+9wod0gkJlKsRJ0i15Jk53VbCgr+EWspwnEwzTyPQOYmjPPgKrwJRnC/SjG4C+lcbnpfdaYJFKRUbxUc8QrkFgGYAkZrVb1ua81nZcuH0j9oeM4yypp+rWW1ZD0wSIlV2h75JXOcEVnPFKhZhRv5eL+PCMUnnzb7ul9MG9o0Sgpxn4/jyLAr/84kvBwwMP36wcJomCkWV6ejZx1jAZfkO/CWcQGJYD4eG6pTtW7xfygW3xfX5cj2TXqodJhbKfcw5Phn/VJdPnQiZ/Vmj48fUVias7m/iZtFo2qhJaKPUY3bsVRdV7CNhw9wBrrk5/rfH7FjdVALmHqE7vcHQUYO/YWdW52llfUzdILwyHiGPXKF5/6+Qkdz1Fp9KLMzYuSNOxMFDNv+Qmq/ZVhJHvQgKlthclcfpg=
