@@ -34,6 +34,7 @@ class Router {
         resolve();
         this.server.on('connection', socket => {
           const connection = new Connection(socket);
+          socket.registered = true;
           connection.registerDispatcher(this.handlers);
         });
       });

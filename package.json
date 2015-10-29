@@ -16,15 +16,16 @@
     "url": "https://github.com/SamuelBolduc/socket-server/issues"
   },
   "homepage": "https://github.com/SamuelBolduc/socket-server#readme",
-  "engines" : { 
-    "node" : ">=4.0.0" 
+  "engines": {
+    "node": ">=4.0.0"
   },
-  "engineStrict" : true,
   "dependencies": {
-    "json-socket": "^0.1.2"
+    "json-socket": "^0.1.2",
+    "socket-router-client": "*"
   },
   "devDependencies": {
     "chai": "^3.4.0",
-    "mocha": "^2.3.3"
+    "mocha": "^2.3.3",
+    "sinon": "^1.17.2"
   }
 }

@@ -1,17 +1,20 @@
 'use strict';
 
 const JsonSocket = require('json-socket');
+const net = require('net');
 
 class Connection {
   constructor(socket) {
     // Bind JSON socket functions
+    if(!socket || !(socket instanceof net.Socket)) throw new Error('A valid socket must be supplied when creating a connection');
+    if(socket.registered) throw new Error('This socket is already registered');
     this.socket = new JsonSocket(socket);
     this.processMessage = this.processMessage.bind(this);
     this.registerUtilityMethods = this.registerUtilityMethods.bind(this);
     this.registerDispatcher = this.registerDispatcher.bind(this);
     this.checkRouteAvailability = this.checkRouteAvailability.bind(this);
     this.route = this.route.bind(this);
-    Promise.all(this.registerUtilityMethods(), this.registerDispatcher());
+    this.registerUtilityMethods();
   }
 
   registerUtilityMethods() {
@@ -34,12 +37,12 @@ class Connection {
   }
 
   registerDispatcher(handlers) {
+    if(!handlers || !(handlers instanceof Map)) throw new Error('A Map of handlers must be specified');
     this.handlers = handlers;
     this.socket.on('message', message => {
       try {
         this.processMessage(message);
       } catch(err) {
-        console.log(err);
         throw err;
       }
     });
@@ -47,7 +50,9 @@ class Connection {
   }
 
   checkMessageIntegrity(message) {
-    if(!message.type) {
+    if(!message) {
+      this.socket.error(new Error('No message received from socket!'));
+    } else if(!message.type) {
       this.socket.error(new Error('No message type found in socket message!'));
     } else {
       return message;
@@ -55,7 +60,7 @@ class Connection {
   }
 
   checkRouteAvailability(message) {
-    if(!this.handlers.get(message.type)) this.socket.error(new Error(`No handler found for this message type (message.type = ${message.type})`));
+    if(!this.handlers.has(message.type)) this.socket.error(new Error(`No handler found for this message type (message.type = ${message.type})`));
     return message;
   }
 
@@ -72,12 +77,20 @@ class Connection {
   }
 
   processMessage(message) {
+    if(!message) return Promise.reject(new Error('A message must be submitted'));
     Promise.resolve(this.checkMessageIntegrity(message))
     .then(this.checkRouteAvailability)
     .then(this.route)
     .catch(err => {
       console.log(err.stack);
     });
+  }
+
+  destroy() {
+    if(this.socket) {
+      this.socket.end();
+      delete this.socket;
+    }
   }
 }
 
