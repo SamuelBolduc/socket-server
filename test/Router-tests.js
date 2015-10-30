@@ -2,6 +2,7 @@
 
 const Router = require(`${process.cwd()}/Router.js`);
 require('chai').should();
+const exec = require('child_process').exec;
 
 function throwException(e) {
   console.error(e);
@@ -53,18 +54,34 @@ describe('Router', () => {
   });
 
   describe('listen method', () => {
-    afterEach(done => {
-      router.end().then(done);
+    
+
+    it('should throw without a port specified', () => {
+      function fn() {
+        router.listen('bad_port');
+      }
+      fn.should.throw();
     });
 
-    it('should work without a callback', () => {
-      router.listen(defaultPort);
-      router.server.should.not.equal(null);
+    it('should fail if port is already in use', done => {
+      router.listen(4441).then(() => {
+        const router2 = new Router();
+        router2.listen(4441).then(() => {
+          done('Port should have been in use');
+        }).catch(e => {
+          e.e.code.should.equal('EADDRINUSE');
+          done();
+        });
+      });
     });
 
-    describe('with a callback', () => {
+    describe('with a valid port', () => {
       beforeEach(done => {
         router.listen(defaultPort).then(done).catch(throwException);
+      });
+
+      afterEach(done => {
+        router.end().then(done);
       });
 
       it('should set the "server" key in the object', () => {
