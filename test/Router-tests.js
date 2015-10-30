@@ -2,7 +2,6 @@
 
 const Router = require(`${process.cwd()}/Router.js`);
 require('chai').should();
-const exec = require('child_process').exec;
 
 function throwException(e) {
   console.error(e);
