@@ -4,6 +4,9 @@ node_js:
 - '4.2'
 - '4.1'
 - '4.0'
+after_success:
+	- babel-node ./node_modules/.bin/isparta cover --reporter lcov --reporter text _mocha
+	- cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 notifications:
   slack:
     secure: BNbmCNpeAKnYwC65DJclbZ3kSKiWP31vL12jHKnfYdQT7RnvEAhoPb7v4CW0BzHLQi7FKPosFO/FgQAXvNZtm56dtE/jedNCA0DcTs9k44fLG6vGEmafztU6wB+2TJ5t+8D3EavunK/fj1GnZRQvYnzPNVh1pBDIRkp0ccaMmIcxRgdvk4sikH+w9z2ty8r3jJ8E4uaaTh+0hcd3oQClzHJrX8mOuHr5rv/2+4cfHdJOO/k1TeH1zvxLkJqIPEi+ANBoD3Gt8VBI6QR+nU2qaJc6aod7TBu0RKGjvehhWaExM9bGdeIZwrq3Kc4+nzSRDhjUyBexKV+eqzzCNJfKEvtDF/OeP1ToIdWa2vmYSm4vaV7KpYj27nxwTyUAESzXFr6jBVoD03SjEa2f3zoMd4qehbZ8VIJ6pXCYZCFOHUnfAQNMmG1REKYKRg13CfKQZ9wL73W4z1/PC47QjCBUTm0uqTy3Mfi+bWEBiqCSmjAuhdwu/y9SDDjJARF/mtaM0hiTXAw1bBr5FtYugbHmw4AhL7BqD7UJkgixNP/Z16zo/0kGhQjnsYwFroG+zLU4glfQldh6xLOmtTcWGR1881ftlzYCf420cqOeL0ZVVEIpGMBZ41VeuYX1dpc4qiWyxC+XKIrtsIglDXGVO2pq/QKzoWAQ2SW43qUwEPy/vLQ=
