@@ -9,6 +9,7 @@ class Router {
     this.handlers = new Map();
     this.server = null;
     this.listening = false;
+    this.handlers.set('ping', this.pingPong);
   }
 
   register(name, handler) {
@@ -72,6 +73,10 @@ class Router {
         return cb(null, port);
       });
     });
+  }
+
+  pingPong(body, res) {
+    res.success('pong');
   }
 }
 

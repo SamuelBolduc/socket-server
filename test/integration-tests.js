@@ -22,8 +22,15 @@ server.listen(4445).then(() => {
       server.end();
     });
 
+    it('should respond to a ping request', done => {
+      client.query({type: 'ping', body: null}).then(res => {
+        res.should.equal('pong');
+        done();
+      });
+    });
+
     it('should respond with the cb provided', done => {
-      client.query({type, body: 'Hello'}).then(res => {
+      client.query({type, body: 'Hello'}).then(() => {
         done();
       });
     });

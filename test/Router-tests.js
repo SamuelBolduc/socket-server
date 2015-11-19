@@ -112,7 +112,7 @@ describe('Router', () => {
     it('should register a new handler', () => {
       const handlerName = 'my-handler';
       router.register(handlerName, noop);
-      router.handlers.size.should.equal(1);
+      router.handlers.size.should.equal(2);
       router.handlers.get(handlerName).should.be.a('function');
     });
 
