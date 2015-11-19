@@ -32,8 +32,6 @@ class Connection {
 
     this.socket.success = _success;
     this.socket.error = _error;
-
-    Promise.resolve();
   }
 
   registerDispatcher(handlers) {
@@ -46,7 +44,6 @@ class Connection {
         throw err;
       }
     });
-    Promise.resolve();
   }
 
   checkMessageIntegrity(message) {
@@ -77,13 +74,8 @@ class Connection {
   }
 
   processMessage(message) {
-    if(!message) return Promise.reject(new Error('A message must be submitted'));
-    Promise.resolve(this.checkMessageIntegrity(message))
-    .then(this.checkRouteAvailability)
-    .then(this.route)
-    .catch(err => {
-      console.log(err.stack);
-    });
+    if(!message) throw new Error('A message must be submitted');
+    this.route(this.checkRouteAvailability(this.checkMessageIntegrity(message)));
   }
 
   destroy() {

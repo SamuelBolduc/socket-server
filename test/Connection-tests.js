@@ -184,11 +184,8 @@ describe('Connection class', () => {
       conn.registerDispatcher(handlers);
     });
 
-    it('should throw if called without a message', done => {
-      Promise.resolve(conn.processMessage()).catch(err => {
-        err.should.be.an.Error;
-        done();
-      });
+    it('should throw if called without a message', () => {
+      conn.processMessage.should.throw();
     });
 
     describe('with a valid message and existing handler', () => {
