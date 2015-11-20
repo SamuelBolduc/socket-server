@@ -20,8 +20,7 @@
     "node": ">=4.0.0"
   },
   "dependencies": {
-    "json-socket": "^0.1.2",
-    "socket-router-client": "*"
+    "json-socket": "^0.1.2"
   },
   "devDependencies": {
     "babel-cli": "^6.1.1",
@@ -29,6 +28,7 @@
     "coveralls": "^2.11.4",
     "isparta": "^3.5.1",
     "mocha": "^2.3.3",
-    "sinon": "^1.17.2"
+    "sinon": "^1.17.2",
+    "socket-router-client": "*"
   }
 }
