@@ -49,15 +49,20 @@ class Connection {
   checkMessageIntegrity(message) {
     if(!message) {
       this.socket.error(new Error('No message received from socket!'));
+      return false;
     } else if(!message.type) {
       this.socket.error(new Error('No message type found in socket message!'));
+      return false;
     } else {
       return message;
     }
   }
 
   checkRouteAvailability(message) {
-    if(!this.handlers.has(message.type)) this.socket.error(new Error(`No handler found for this message type (message.type = ${message.type})`));
+    if(!this.handlers.has(message.type)) {
+      this.socket.error(new Error(`No handler found for this message type (message.type = ${message.type})`));
+      return false;
+    }
     return message;
   }
 
@@ -75,7 +80,9 @@ class Connection {
 
   processMessage(message) {
     if(!message) throw new Error('A message must be submitted');
-    this.route(this.checkRouteAvailability(this.checkMessageIntegrity(message)));
+    if(!this.checkMessageIntegrity(message)) return console.log(new Error('Bad message'));
+    if(!this.checkRouteAvailability(message)) return console.log(new Error(`No handler for task ${message.type}`));
+    this.route(message);
   }
 
   destroy() {
