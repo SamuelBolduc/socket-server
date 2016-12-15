@@ -1,6 +1,6 @@
 {
   "name": "socket-server-router",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Server to listen on a port and route messages to appropriate handlers",
   "main": "Router.js",
   "scripts": {
@@ -20,7 +20,7 @@
     "node": ">=4.0.0"
   },
   "dependencies": {
-    "json-socket": "^0.1.2"
+    "json-socket": "^0.2.1"
   },
   "devDependencies": {
     "babel-cli": "^6.1.1",
